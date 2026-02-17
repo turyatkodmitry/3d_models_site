@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>3D Models Shop - Главная</title>
+    <link rel="stylesheet" href="css/style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+<body>
+    <!-- Навигационная панель -->
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="logo">
+                3D Models <span>Store</span>
+            </div>
+            <ul class="nav-menu">
+                <li><a href="index.html" class="active"><i class="fas fa-home"></i> Главная</a></li>
+                <li><a href="catalog.html"><i class="fas fa-cube"></i> Каталог</a></li>
+                <li><a href="cart.html" class="cart-icon">
+                    <i class="fas fa-shopping-cart"></i> Корзина
+                    <span class="cart-badge" id="cartCount">0</span>
+                </a></li>
+                <li><a href="profile.html"><i class="fas fa-user"></i> Профиль</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <main class="main-container">
+        <!-- Hero секция -->
+        <section class="hero-section">
+            <h1>Мир 3D-моделирования</h1>
+            <p>Откройте для себя тысячи профессиональных 3D-моделей для игр, архитектуры, анимации и 3D-печати. Высокое качество, низкие цены, мгновенная загрузка.</p>
+        </section>
+
+        <!-- Особенности -->
+        <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-cubes"></i>
+                </div>
+                <h3>10,000+ моделей</h3>
+                <p>Огромная библиотека профессиональных 3D-моделей для любых целей</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Мгновенная загрузка</h3>
+                <p>Скачивайте модели сразу после покупки в любом удобном формате</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Премиум качество</h3>
+                <p>Все модели проходят строгую проверку качества перед публикацией</p>
+            </div>
+        </section>
+
+        <!-- Популярные категории -->
+        <h2 style="color: var(--dark-blue); margin: 3rem 0 1.5rem;">Популярные категории</h2>
+        <div class="products-grid" style="margin-bottom: 3rem;">
+            <div class="product-card">
+                <div class="product-image" onclick="window.location.href='catalog.html?category=characters'" style="cursor: pointer;">
+                    <i class="fas fa-robot"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Персонажи</h3>
+                    <p style="color: var(--gray); margin-bottom: 0.5rem;">Игровые персонажи, люди, существа</p>
+                    <a href="catalog.html?category=characters" class="add-to-cart" style="display: inline-block; text-decoration: none; width: 100%; text-align: center;">
+                        <i class="fas fa-search"></i> Смотреть
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" onclick="window.location.href='catalog.html?category=architecture'" style="cursor: pointer;">
+                    <i class="fas fa-city"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Архитектура</h3>
+                    <p style="color: var(--gray); margin-bottom: 0.5rem;">Здания, интерьеры, города</p>
+                    <a href="catalog.html?category=architecture" class="add-to-cart" style="display: inline-block; text-decoration: none; width: 100%; text-align: center;">
+                        <i class="fas fa-search"></i> Смотреть
+                    </a>
+                </div>
+            </div>
+            <div class="product-card">
+                <div class="product-image" onclick="window.location.href='catalog.html?category=vehicles'" style="cursor: pointer;">
+                    <i class="fas fa-car"></i>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title">Транспорт</h3>
+                    <p style="color: var(--gray); margin-bottom: 0.5rem;">Машины, самолеты, корабли</p>
+                    <a href="catalog.html?category=vehicles" class="add-to-cart" style="display: inline-block; text-decoration: none; width: 100%; text-align: center;">
+                        <i class="fas fa-search"></i> Смотреть
+                    </a>
+                </div>
+            </div>
+        </div>
+
+        <!-- Новинки -->
+        <h2 style="color: var(--dark-blue); margin-bottom: 1.5rem;">Новинки</h2>
+        <div class="products-grid" style="margin-bottom: 3rem;">
+            <div class="product-card">
+                <div class="product-image" onclick="window.location.href='product.html?id=7'" style="cursor: pointer;">
+                    <i class="fas fa-terminal"></i>
+                    <span class="product-badge">Новинка</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title" onclick="window.location.href='product.html?id=7'" style="cursor: pointer;">Терминал</h3>
+                    <p style="color: var(--gray); margin-bottom: 0.5rem;">Аэропорт</p>
+                    <div class="product-price">7 990 ₽</div>
+                    <button class="add-to-cart" onclick="addToCart(7)" style="width: 100%;">
+                        <i class="fas fa-shopping-cart"></i> В корзину
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image" onclick="window.location.href='product.html?id=8'" style="cursor: pointer;">
+                    <i class="fas fa-filter"></i>
+                    <span class="product-badge">Хит продаж</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title" onclick="window.location.href='product.html?id=8'" style="cursor: pointer;">Фильтр</h3>
+                    <p style="color: var(--gray); margin-bottom: 0.5rem;">Автомобильный</p>
+                    <div class="product-price">2 490 ₽</div>
+                    <button class="add-to-cart" onclick="addToCart(8)" style="width: 100%;">
+                        <i class="fas fa-shopping-cart"></i> В корзину
+                    </button>
+                </div>
+            </div>
+            
+            <div class="product-card">
+                <div class="product-image" onclick="window.location.href='product.html?id=9'" style="cursor: pointer;">
+                    <i class="fas fa-water"></i>
+                    <span class="product-badge">Премиум</span>
+                </div>
+                <div class="product-info">
+                    <h3 class="product-title" onclick="window.location.href='product.html?id=9'" style="cursor: pointer;">Резервуар</h3>
+                    <p style="color: var(--gray); margin-bottom: 0.5rem;">Промышленный</p>
+                    <div class="product-price">5 490 ₽</div>
+                    <button class="add-to-cart" onclick="addToCart(9)" style="width: 100%;">
+                        <i class="fas fa-shopping-cart"></i> В корзину
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Преимущества -->
+        <section class="features-section">
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-ruble-sign"></i>
+                </div>
+                <h3>Цены в рублях</h3>
+                <p>Все цены указаны в рублях, оплата российскими картами</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-bolt"></i>
+                </div>
+                <h3>Мгновенная загрузка</h3>
+                <p>Скачивайте модели сразу после покупки</p>
+            </div>
+            <div class="feature-card">
+                <div class="feature-icon">
+                    <i class="fas fa-star"></i>
+                </div>
+                <h3>Премиум качество</h3>
+                <p>Все модели проходят строгую проверку</p>
+            </div>
+        </section>
+    </main>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
