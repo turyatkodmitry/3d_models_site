@@ -118,7 +118,7 @@ function getCategoryName(category) {
     const categories = {
         'characters': 'Персонажи',
         'architecture': 'Архитектура',
-        'vehicles': 'Транспорт'
+        'oil': 'Нефть'
     };
     return categories[category] || category;
 }

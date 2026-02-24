@@ -28,7 +28,7 @@ const products = [
     {
         id: 2,
         name: "Фильтр",
-        category: "vehicles",
+        category: "oil",
         price: 2490,
         image: "fa-filter",
         preview: "images/Object 2/object2_1.png",
@@ -49,7 +49,7 @@ const products = [
     {
         id: 3,
         name: "Резервуар",
-        category: "architecture",
+        category: "oil",
         price: 5490,
         image: "fa-water",
         preview: "images/Object 3/object3_1.png",
