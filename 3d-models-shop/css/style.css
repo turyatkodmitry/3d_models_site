@@ -906,3 +906,74 @@ body {
         text-align: center;
     }
 }
+
+/* Стили для кнопки удаления из избранного */
+.remove-wishlist-btn {
+    background: none;
+    border: none;
+    color: #ff4444;
+    font-size: 1.2rem;
+    cursor: pointer;
+    padding: 0.5rem;
+    border-radius: 50%;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.remove-wishlist-btn:hover {
+    background: #ffeeee;
+    transform: scale(1.1);
+}
+
+.remove-wishlist-btn i {
+    pointer-events: none;
+}
+
+/* Стили для кнопки избранного */
+.wishlist-btn {
+    flex: 1;
+    background: white;
+    color: var(--primary-blue);
+    border: 2px solid var(--primary-blue);
+    padding: 1rem;
+    border-radius: 10px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    position: relative;
+}
+
+.wishlist-btn i {
+    transition: all 0.3s ease;
+}
+
+.wishlist-btn:hover {
+    background: var(--primary-blue);
+    color: white;
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px var(--primary-blue);
+}
+
+.wishlist-btn.active {
+    background: #ff4444;
+    border-color: #ff4444;
+    color: white;
+}
+
+.wishlist-btn.active:hover {
+    background: #cc0000;
+    border-color: #cc0000;
+    box-shadow: 0 5px 15px rgba(255, 68, 68, 0.3);
+}
+
+.wishlist-btn.active i {
+    animation: heartBeat 0.3s ease;
+}
+
+@keyframes heartBeat {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.2); }
+    100% { transform: scale(1); }
+}

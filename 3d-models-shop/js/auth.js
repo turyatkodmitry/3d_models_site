@@ -160,6 +160,25 @@ function switchAuthTab(tab) {
     }
 }
 
+// Функция для удаления из избранного (для обратной совместимости)
+function removeFromWishlist(productId) {
+    if (!currentUser) return;
+    
+    const productIndex = currentUser.wishlist.findIndex(item => item.id === productId);
+    
+    if (productIndex !== -1) {
+        const productName = currentUser.wishlist[productIndex].name;
+        currentUser.wishlist.splice(productIndex, 1);
+        saveCurrentUser();
+        showNotification(`🗑️ ${productName} удален из избранного`);
+        
+        // Если мы на странице профиля, обновляем отображение
+        if (window.location.pathname.includes('profile.html')) {
+            loadProfile();
+        }
+    }
+}
+
 // Загрузка профиля пользователя
 function loadProfile() {
     const profileContainer = document.getElementById('profileContainer');
@@ -246,7 +265,12 @@ function loadProfile() {
                             ${item.badge ? `<span class="product-badge">${item.badge}</span>` : ''}
                         </div>
                         <div class="product-info">
-                            <h3 class="product-title" onclick="window.location.href='product.html?id=${item.id}'" style="cursor: pointer;">${item.name}</h3>
+                            <div style="display: flex; justify-content: space-between; align-items: center;">
+                                <h3 class="product-title" onclick="window.location.href='product.html?id=${item.id}'" style="cursor: pointer;">${item.name}</h3>
+                                <button class="remove-wishlist-btn" onclick="removeFromWishlist(${item.id})" title="Удалить из избранного">
+                                    <i class="fas fa-trash"></i>
+                                </button>
+                            </div>
                             <p style="color: var(--gray); margin-bottom: 0.5rem;">${getCategoryName(item.category)}</p>
                             <div class="product-price">${item.price.toLocaleString('ru-RU')} ₽</div>
                             <button class="add-to-cart" onclick="addToCart(${item.id})" style="width: 100%;">
@@ -279,7 +303,10 @@ function addToWishlist(productId) {
     }
 
     // Проверяем, есть ли уже товар в избранном
-    if (!currentUser.wishlist.some(item => item.id === productId)) {
+    const existingItemIndex = currentUser.wishlist.findIndex(item => item.id === productId);
+    
+    if (existingItemIndex === -1) {
+        // Добавляем в избранное
         currentUser.wishlist.push({
             id: product.id,
             name: product.name,
@@ -298,7 +325,16 @@ function addToWishlist(productId) {
             loadProfile();
         }
     } else {
-        showNotification(`ℹ️ ${product.name} уже в избранном`);
+        // Удаляем из избранного
+        const productName = currentUser.wishlist[existingItemIndex].name;
+        currentUser.wishlist.splice(existingItemIndex, 1);
+        saveCurrentUser();
+        showNotification(`🗑️ ${productName} удален из избранного`);
+        
+        // Если мы на странице профиля, обновляем отображение
+        if (window.location.pathname.includes('profile.html')) {
+            loadProfile();
+        }
     }
 }
 

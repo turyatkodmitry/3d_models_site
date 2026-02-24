@@ -7,6 +7,12 @@ function getProductId() {
 // Текущий выбранный индекс изображения
 let currentImageIndex = 0;
 
+// Проверка, есть ли товар в избранном
+function isInWishlist(productId) {
+    if (!currentUser || !currentUser.wishlist) return false;
+    return currentUser.wishlist.some(item => item.id === productId);
+}
+
 // Отображение детальной информации о товаре
 function displayProductDetail() {
     const productId = getProductId();
@@ -19,6 +25,9 @@ function displayProductDetail() {
 
     const productDetail = document.getElementById('productDetail');
     if (!productDetail) return;
+    
+    // Проверяем, в избранном ли товар
+    const inWishlist = isInWishlist(productId);
     
     // Создаем HTML для галереи
     const thumbnailsHtml = product.images.map((img, index) => `
@@ -81,12 +90,73 @@ function displayProductDetail() {
                 <button class="add-to-cart-detail" onclick="addToCart(${product.id})">
                     <i class="fas fa-shopping-cart"></i> Добавить в корзину
                 </button>
-                <button class="wishlist-btn" onclick="addToWishlist(${product.id})">
-                    <i class="fas fa-heart"></i>
+                <button class="wishlist-btn ${inWishlist ? 'active' : ''}" onclick="toggleWishlist(${product.id})" id="wishlistBtn">
+                    <i class="fas ${inWishlist ? 'fa-heart' : 'fa-heart'}"></i>
                 </button>
             </div>
         </div>
     `;
+}
+
+// Переключение избранного (добавить/удалить)
+function toggleWishlist(productId) {
+    if (!currentUser) {
+        showNotification('❌ Войдите, чтобы добавлять в избранное');
+        setTimeout(() => {
+            window.location.href = 'login.html';
+        }, 1500);
+        return;
+    }
+
+    const product = products.find(p => p.id === productId);
+    if (!product) return;
+
+    if (!currentUser.wishlist) {
+        currentUser.wishlist = [];
+    }
+
+    const existingItemIndex = currentUser.wishlist.findIndex(item => item.id === productId);
+    
+    if (existingItemIndex === -1) {
+        // Добавляем в избранное
+        currentUser.wishlist.push({
+            id: product.id,
+            name: product.name,
+            price: product.price,
+            category: product.category,
+            image: product.image,
+            preview: product.preview,
+            badge: product.badge
+        });
+        
+        saveCurrentUser();
+        showNotification(`❤️ ${product.name} добавлен в избранное!`);
+        
+        // Меняем иконку кнопки
+        const wishlistBtn = document.getElementById('wishlistBtn');
+        if (wishlistBtn) {
+            wishlistBtn.classList.add('active');
+            wishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
+        }
+    } else {
+        // Удаляем из избранного
+        const productName = currentUser.wishlist[existingItemIndex].name;
+        currentUser.wishlist.splice(existingItemIndex, 1);
+        saveCurrentUser();
+        showNotification(`🗑️ ${productName} удален из избранного`);
+        
+        // Меняем иконку кнопки
+        const wishlistBtn = document.getElementById('wishlistBtn');
+        if (wishlistBtn) {
+            wishlistBtn.classList.remove('active');
+            wishlistBtn.innerHTML = '<i class="fas fa-heart"></i>';
+        }
+    }
+    
+    // Если мы на странице профиля, обновляем отображение
+    if (window.location.pathname.includes('profile.html')) {
+        loadProfile();
+    }
 }
 
 // Смена изображения в галерее
@@ -118,17 +188,9 @@ function getCategoryName(category) {
     const categories = {
         'characters': 'Персонажи',
         'architecture': 'Архитектура',
-        'oil': 'Нефть'
+        'vehicles': 'Транспорт'
     };
     return categories[category] || category;
-}
-
-// Добавление в избранное
-function addToWishlist(productId) {
-    const product = products.find(p => p.id === productId);
-    if (product) {
-        showNotification(`❤️ ${product.name} добавлен в избранное!`);
-    }
 }
 
 // Функция возврата на предыдущую страницу
