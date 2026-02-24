@@ -74,20 +74,22 @@ const products = [
 function updateCartCount() {
     const cartCount = document.getElementById('cartCount');
     if (cartCount) {
-        const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+        const totalItems = cart.length; // Просто количество товаров, так как quantity всегда 1
         cartCount.textContent = totalItems;
     }
 }
 
-// Добавление товара в корзину
+// Добавление товара в корзину (только один раз)
 function addToCart(productId) {
     const product = products.find(p => p.id === productId);
     
     const existingItem = cart.find(item => item.id === productId);
     
     if (existingItem) {
-        existingItem.quantity += 1;
+        // Товар уже в корзине
+        showNotification(`ℹ️ ${product.name} уже добавлен в корзину`);
     } else {
+        // Добавляем новый товар с quantity = 1
         cart.push({
             id: product.id,
             name: product.name,
@@ -96,13 +98,12 @@ function addToCart(productId) {
             preview: product.preview,
             quantity: 1
         });
+        
+        localStorage.setItem('cart', JSON.stringify(cart));
+        updateCartCount();
+        
+        showNotification(`✅ ${product.name} добавлен в корзину!`);
     }
-    
-    localStorage.setItem('cart', JSON.stringify(cart));
-    updateCartCount();
-    
-    // Анимация добавления
-    showNotification(`✅ ${product.name} добавлен в корзину!`);
     
     // Если мы на странице корзины, обновляем отображение
     if (window.location.pathname.includes('cart.html')) {

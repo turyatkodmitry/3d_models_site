@@ -19,7 +19,7 @@ function displayCart() {
     
     let total = 0;
     const cartItems = cart.map(item => {
-        const itemTotal = item.price * item.quantity;
+        const itemTotal = item.price; // quantity всегда 1
         total += itemTotal;
         const product = products.find(p => p.id === item.id);
         
@@ -33,7 +33,7 @@ function displayCart() {
                 </div>
                 <div class="cart-item-title" onclick="window.location.href='product.html?id=${item.id}'" style="cursor: pointer;">
                     <h3>${item.name}</h3>
-                    <p style="color: var(--gray);">Количество: ${item.quantity}</p>
+                    <p style="color: var(--gray);">1 шт.</p>
                 </div>
                 <div class="cart-item-price">
                     ${itemTotal.toLocaleString('ru-RU')} ₽
@@ -63,7 +63,7 @@ function checkout() {
         return;
     }
     
-    const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const total = cart.reduce((sum, item) => sum + item.price, 0);
     showNotification(`✅ Заказ оформлен на сумму ${total.toLocaleString('ru-RU')} ₽! Спасибо за покупку!`);
     
     cart = [];
