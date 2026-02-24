@@ -9,7 +9,7 @@ const products = [
         category: "architecture",
         price: 7990,
         image: "fa-terminal",
-        preview: "images/Object 1/object1_1.png", // Добавлено превью
+        preview: "images/Object 1/object1_1.png",
         badge: "Новинка",
         description: "Современный терминал для аэропорта или банка.",
         specs: {
@@ -31,7 +31,7 @@ const products = [
         category: "vehicles",
         price: 2490,
         image: "fa-filter",
-        preview: "images/Object 2/object2_1.png", // Добавлено превью
+        preview: "images/Object 2/object2_1.png",
         badge: "Хит продаж",
         description: "Детализированная 3D-модель нефтегазового фильтра. Подходит для дополнения к визуализации трубопроводных линий",
         specs: {
@@ -52,7 +52,7 @@ const products = [
         category: "architecture",
         price: 5490,
         image: "fa-water",
-        preview: "images/Object 3/object3_1.png", // Добавлено превью
+        preview: "images/Object 3/object3_1.png",
         badge: "Премиум",
         description: "Промышленный резервуар для хранения жидкостей. Идеально для индустриальной визуализации.",
         specs: {

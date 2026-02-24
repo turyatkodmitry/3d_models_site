@@ -238,10 +238,16 @@ function loadProfile() {
                 currentUser.wishlist.map(item => `
                     <div class="product-card">
                         <div class="product-image" onclick="window.location.href='product.html?id=${item.id}'" style="cursor: pointer;">
-                            <img src="${item.preview}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas ${item.image}\' style=\'font-size: 3rem;\'></i>'">
+                            ${item.preview ? 
+                                `<img src="${item.preview}" alt="${item.name}" style="width: 100%; height: 100%; object-fit: cover;" 
+                                    onerror="this.style.display='none'; this.parentElement.innerHTML='<i class=\'fas ${item.image}\' style=\'font-size: 3rem;\'></i>'">` 
+                                : `<i class="fas ${item.image}" style="font-size: 3rem;"></i>`
+                            }
+                            ${item.badge ? `<span class="product-badge">${item.badge}</span>` : ''}
                         </div>
                         <div class="product-info">
                             <h3 class="product-title" onclick="window.location.href='product.html?id=${item.id}'" style="cursor: pointer;">${item.name}</h3>
+                            <p style="color: var(--gray); margin-bottom: 0.5rem;">${getCategoryName(item.category)}</p>
                             <div class="product-price">${item.price.toLocaleString('ru-RU')} ₽</div>
                             <button class="add-to-cart" onclick="addToCart(${item.id})" style="width: 100%;">
                                 <i class="fas fa-shopping-cart"></i> В корзину
@@ -278,15 +284,32 @@ function addToWishlist(productId) {
             id: product.id,
             name: product.name,
             price: product.price,
+            category: product.category,
             image: product.image,
-            preview: product.preview
+            preview: product.preview,
+            badge: product.badge
         });
         
         saveCurrentUser();
         showNotification(`❤️ ${product.name} добавлен в избранное!`);
+        
+        // Если мы на странице профиля, обновляем отображение
+        if (window.location.pathname.includes('profile.html')) {
+            loadProfile();
+        }
     } else {
         showNotification(`ℹ️ ${product.name} уже в избранном`);
     }
+}
+
+// Получение названия категории
+function getCategoryName(category) {
+    const categories = {
+        'characters': 'Персонажи',
+        'architecture': 'Архитектура',
+        'vehicles': 'Транспорт'
+    };
+    return categories[category] || category;
 }
 
 // Инициализация при загрузке страницы
